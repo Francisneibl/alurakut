@@ -32,7 +32,7 @@ export default function LoginScreen() {
     >
       <div className="loginScreen">
         <section className="logoArea">
-          <img src="https://alurakut.vercel.app/logo.svg" />
+          <img src="/images/logo.svg" />
 
           <p>
             <strong>Conecte-se</strong> aos seus amigos e familiares usando

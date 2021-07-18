@@ -13,6 +13,7 @@ import {
   AlurakutProfileSidebarMenuDefault,
   OrkutNostalgicIconSet,
 } from "../src/lib/AlurakutCommons";
+import { CircularProgress } from "@material-ui/core";
 
 function ProfileSideBar(props) {
   return (
@@ -67,7 +68,7 @@ export default function Home(props) {
   const [communities, setCommunities] = useState([]);
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
-
+  const [sending, setSending] = useState(false);
   const gitHubUser = props.githubUser;
 
   useEffect(() => {
@@ -101,11 +102,12 @@ export default function Home(props) {
                   image_url: formData.get("image"),
                   creat_by: gitHubUser,
                 };
-
+                setSending(true);
                 addCommunities(communitie).then((res) => {
-                  alert(`Comunidade Cadastratdo com sucesso `);
+                  alert("Comunidade cadastrada!");
                   setCommunities((prev) => [...prev, res]);
                   e.target.reset();
+                  setSending(false);
                 });
               }}
             >
@@ -137,7 +139,11 @@ export default function Home(props) {
                 />
               </div>
               <div className="button-group">
-                <button type="submit">Cadastrar</button>
+                {sending ? (
+                  <CircularProgress />
+                ) : (
+                  <button type="submit">Cadastrar</button>
+                )}
               </div>
             </form>
           </Box>

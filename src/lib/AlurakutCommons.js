@@ -374,7 +374,7 @@ const AlurakutLoginScreen = css`
     --colorPrimary: #2e7bb4;
     --colorSecondary: #388bb0;
     --colorTertiary: #2f4a71;
-    --colorQuarternary: #d81d99;
+    --colorQuarternary: black;
     --textPrimaryColor: #333333;
     --textSecondaryColor: #ffffff;
     --textTertiaryColor: #5a5a5a;
