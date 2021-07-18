@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
-
+import nookies from "nookies";
+import { getFollowers, getFollowing } from "../src/core/utils/useGitHub";
+import {
+  getCommunities,
+  addCommunities,
+} from "../src/core/utils/useCommunities";
 import MainGrid from "../src/components/MainGrid";
 import Box from "../src/components/Box";
 import { ProfileRelationsBoxWrapper } from "../src/components/ProfileRelations";
@@ -33,37 +38,42 @@ function ProfileSideBar(props) {
   );
 }
 
-export default function Home() {
+function ProfileRelationsBox(props) {
+  return (
+    <ProfileRelationsBoxWrapper>
+      <h2 className="smallTitle">
+        {props.title}({props.data.length})
+      </h2>
+      <ul>
+        {props.data.map((current, index) => {
+          if (index < 6) {
+            return (
+              <li key={index}>
+                <a href={current.html_url} target="_blank">
+                  <img src={current.avatar_url} />
+                  <span>{current.login}</span>
+                </a>
+              </li>
+            );
+          }
+          return false;
+        })}
+      </ul>
+    </ProfileRelationsBoxWrapper>
+  );
+}
+
+export default function Home(props) {
   const [communities, setCommunities] = useState([]);
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
 
-  const gitHubUser = "Francisneibl";
-  const favoritePeople = [
-    "juunegreiros",
-    "omariosouto",
-    "peas",
-    "rafaballerini",
-    "felipefialho",
-    "peleteiro",
-  ];
+  const gitHubUser = props.githubUser;
 
   useEffect(() => {
-    fetch(`https://api.github.com/users/${gitHubUser}/followers`)
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        setFollowers(data);
-      })
-      .catch((error) => console.error(error.message));
-
-    /*fetch(`https://api.github.com/users/${gitHubUser}/following`)
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => setFollowing(data))
-      .catch((error) => console.error(error.message));*/
+    getFollowers(gitHubUser).then((data) => setFollowers(data));
+    getFollowing(gitHubUser).then((data) => setFollowing(data));
+    getCommunities().then((data) => setCommunities(data));
   }, []);
 
   return (
@@ -75,7 +85,7 @@ export default function Home() {
         </div>
         <div className="welcomeArea" style={{ gridArea: "welcomeArea" }}>
           <Box>
-            <h1 className="title">Bem vindo(a)</h1>
+            <h1 className="title">Bem vindo(a) {gitHubUser}</h1>
 
             <OrkutNostalgicIconSet confiavel={3} sexy={2} legal={2} />
           </Box>
@@ -85,16 +95,18 @@ export default function Home() {
                 e.preventDefault();
                 const formData = new FormData(e.target);
 
-                const comunidade = {
-                  id: new Date().toISOString(),
-                  title: formData.get("name"),
-                  link: formData.get("link"),
-                  image: formData.get("image"),
+                const communitie = {
+                  title: formData.get("title"),
+                  url: formData.get("link"),
+                  image_url: formData.get("image"),
+                  creat_by: gitHubUser,
                 };
-                console.log(comunidade);
-                setCommunities([...communities, comunidade]);
-                e.target.reset();
-                formData.set("image", "test");
+
+                addCommunities(communitie).then((res) => {
+                  alert(`Comunidade Cadastratdo com sucesso `);
+                  setCommunities((prev) => [...prev, res]);
+                  e.target.reset();
+                });
               }}
             >
               <div>
@@ -112,6 +124,7 @@ export default function Home() {
                   aria-label="Link da comunidade"
                   name="link"
                   type="text"
+                  autoComplete="off"
                 />
               </div>
               <div>
@@ -120,9 +133,12 @@ export default function Home() {
                   aria-label="Link para a imagem "
                   name="image"
                   type="text"
+                  autoComplete="off"
                 />
               </div>
-              <button type="submit">Cadastrar</button>
+              <div className="button-group">
+                <button type="submit">Cadastrar</button>
+              </div>
             </form>
           </Box>
         </div>
@@ -138,8 +154,8 @@ export default function Home() {
                 if (index < 6) {
                   return (
                     <li key={currentItem.id}>
-                      <a href="#">
-                        <img src={currentItem.image} />
+                      <a href={currentItem.url} target="_blank">
+                        <img src={currentItem.imageUrl} />
                         <span>{currentItem.title}</span>
                       </a>
                     </li>
@@ -149,40 +165,35 @@ export default function Home() {
               })}
             </ul>
           </ProfileRelationsBoxWrapper>
-          <ProfileRelationsBoxWrapper>
-            <h2 className="smallTitle">Seguindo({following.length})</h2>
-            <ul>
-              {favoritePeople.map((current, index) => {
-                if (index < 6) {
-                  return (
-                    <li key={index}>
-                      <a href={current.html_ur}>
-                        <img src={current.avatar_url} />
-                        <span>{current.login}</span>
-                      </a>
-                    </li>
-                  );
-                }
-                return false;
-              })}
-            </ul>
-          </ProfileRelationsBoxWrapper>
-          <ProfileRelationsBoxWrapper>
-            <h2 className="smallTitle">Seguidores ({followers.length})</h2>
 
-            <ul>
-              {followers.map((current, index) => (
-                <li key={index}>
-                  <a href={current.html_url} target="_blank">
-                    <img src={current.avatar_url} />
-                    <span>{current.login}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </ProfileRelationsBoxWrapper>
+          <ProfileRelationsBox title="Seguindo" data={following} />
+          <ProfileRelationsBox title="Seguidores" data={followers} />
         </div>
       </MainGrid>
     </>
   );
+}
+
+export async function getServerSideProps(context) {
+  const cookies = nookies.get(context);
+  const token = cookies.USER_TOKEN;
+  const { login } = await fetch("https://api.github.com/user", {
+    headers: {
+      Authorization: `token ${token}`,
+    },
+  }).then(async (res) => await res.json());
+
+  if (!login) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {
+      githubUser: login,
+    },
+  };
 }

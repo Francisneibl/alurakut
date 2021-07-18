@@ -11,7 +11,11 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: sans-serif;
-    background-color: #D9E6F6;
+    background-color: #040D21;
+    background-image: url('/images/hero-glow.svg');
+    background-repeat: no-repeat;
+    background-size: 200%;
+    background-position: center center;
   }
 
   #__next {

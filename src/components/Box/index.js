@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 const Box = styled.div`
-  background-color: #ffffff;
-  border-radius: 8px;
+  background-color: transparent;
+  border-radius: 6px;
+  border: 2px solid #30363d;
   padding: 16px;
 
   /* CSS Pré-Pronto */
@@ -14,6 +15,7 @@ const Box = styled.div`
     font-weight: 800;
   }
   .title {
+    color: #ffffff;
     font-size: 32px;
     font-weight: 400;
     margin-bottom: 20px;
@@ -27,7 +29,7 @@ const Box = styled.div`
     margin-bottom: 20px;
     font-size: 16px;
     font-weight: 700;
-    color: #333333;
+    color: #ffffff;
     margin-bottom: 20px;
   }
   hr {
@@ -38,14 +40,14 @@ const Box = styled.div`
   }
   input {
     width: 100%;
-    background-color: #f4f4f4;
-    color: #333333;
-    border: 0;
+    background-color: transparent;
+    color: #c9d1d9;
+    border: 2px solid #30363d;
     padding: 14px 16px;
     margin-bottom: 14px;
-    border-radius: 10000px;
+    border-radius: 6px;
     ::placeholder {
-      color: #333333;
+      color: #c9d1d9;
       opacity: 1;
     }
   }
@@ -53,8 +55,13 @@ const Box = styled.div`
     border: 0;
     padding: 8px 12px;
     color: #ffffff;
-    border-radius: 10000px;
-    background-color: #6f92bb;
+    border-radius: 6px;
+    background-color: #2ea043;
+  }
+
+  .button-group {
+    display: flex;
+    justify-content: flex-end;
   }
 `;
 

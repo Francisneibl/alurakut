@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import NextLink from "next/link";
+import { useLogin } from "../core/utils/useLogin";
 
 const BASE_URL = "http://alurakut.vercel.app/";
 const v = "1";
@@ -18,11 +19,14 @@ function Link({ href, children, ...props }) {
 // ================================================================================================================
 export function AlurakutMenu({ githubUser }) {
   const [isMenuOpen, setMenuState] = React.useState(false);
+  const { logOut } = useLogin();
   return (
     <AlurakutMenu.Wrapper isMenuOpen={isMenuOpen}>
       <div className="container">
-        <AlurakutMenu.Logo src={`${BASE_URL}/logo.svg`} />
-
+        <AlurakutMenu.Logo>
+          <img src="images/github-icon.svg" />
+          <p>GitKut</p>
+        </AlurakutMenu.Logo>
         <nav style={{ flex: 1 }}>
           {[
             { name: "Inicio", slug: "/" },
@@ -39,9 +43,9 @@ export function AlurakutMenu({ githubUser }) {
         </nav>
 
         <nav>
-          <a href={`/logout`}>Sair</a>
+          <a onClick={logOut}>Sair</a>
           <div>
-            <input placeholder="Pesquisar no Orkut" />
+            <input placeholder="Pesquisar no Gitkut" />
           </div>
         </nav>
 
@@ -58,7 +62,7 @@ export function AlurakutMenu({ githubUser }) {
 }
 AlurakutMenu.Wrapper = styled.header`
   width: 100%;
-  background-color: #308bc5;
+  background-color: transparent;
   .alurakutMenuProfileSidebar {
     background: white;
     position: fixed;
@@ -98,7 +102,8 @@ AlurakutMenu.Wrapper = styled.header`
     }
   }
   .container {
-    background-color: #308bc5;
+    background-color: transparent;
+    font-weight: 800;
     padding: 7px 16px;
     max-width: 1110px;
     margin: auto;
@@ -145,13 +150,13 @@ AlurakutMenu.Wrapper = styled.header`
     }
     input {
       color: #ffffff;
-      background: #5579a1;
+      background: transparent;
       padding: 10px 42px;
-      border: 0;
+      border: 2px solid #30363d;
       background-image: url(${`${BASE_URL}/icons/search.svg`});
       background-position: 15px center;
       background-repeat: no-repeat;
-      border-radius: 1000px;
+      border-radius: 6px;
       font-size: 12px;
       ::placeholder {
         color: #ffffff;
@@ -160,11 +165,24 @@ AlurakutMenu.Wrapper = styled.header`
     }
   }
 `;
-AlurakutMenu.Logo = styled.img`
-  background-color: #ffffff;
-  padding: 9px 14px;
-  border-radius: 1000px;
-  height: 34px;
+AlurakutMenu.Logo = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    background-color: #fff;
+    padding: 1px 3px;
+    border-radius: 8px;
+    height: 45px;
+  }
+
+  p {
+    font-size: 24px;
+    color: #fff;
+    margin: 0 20px 0 10px;
+    font-weight: 700px;
+  }
 `;
 
 function AlurakutMenuProfileSidebar({ githubUser }) {
@@ -319,7 +337,7 @@ OrkutNostalgicIconSet.List = styled.ul`
   flex-wrap: wrap;
   li {
     font-size: 12px;
-    color: #5a5a5a;
+    color: #ffffff;
     display: grid;
     grid-template-areas:
       "title title"
