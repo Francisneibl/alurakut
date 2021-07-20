@@ -18,20 +18,19 @@ export default async (request, response) => {
       fetch("https://graphql.datocms.com/", {
         method: "POST",
         headers: {
-          Authorization: "1d2f217f4607eea8b36b3edd76ff47",
+          Authorization: TOKEN_DATO,
           "Content-Type": "application/json",
           Accept: "",
         },
         body: JSON.stringify({
           query: `{
-          allCommunities {
-            id
-            imageUrl
-            title
-            url
-            creatBy
+            allCommunities{
+              id
+              title
+              imageUrl
+              htmlUrl
+            }
           }
-        }
         `,
         }),
       })

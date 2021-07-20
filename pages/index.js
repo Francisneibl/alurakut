@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import nookies from "nookies";
-import { getFollowers, getFollowing } from "../src/core/utils/useGitHub";
+import { getFollowers, getFollowing } from "../src/core/hooks/useGitHub";
 import {
   getCommunities,
   addCommunities,
-} from "../src/core/utils/useCommunities";
+} from "../src/core/hooks/useCommunities";
 import MainGrid from "../src/components/MainGrid";
 import Box from "../src/components/Box";
-import { ProfileRelationsBoxWrapper } from "../src/components/ProfileRelations";
+import ProfileRelationsArea from "../src/widgets/profileRelationsArea";
 import {
   AlurakutMenu,
   AlurakutProfileSidebarMenuDefault,
@@ -39,31 +39,6 @@ function ProfileSideBar(props) {
   );
 }
 
-function ProfileRelationsBox(props) {
-  return (
-    <ProfileRelationsBoxWrapper>
-      <h2 className="smallTitle">
-        {props.title}({props.data.length})
-      </h2>
-      <ul>
-        {props.data.map((current, index) => {
-          if (index < 6) {
-            return (
-              <li key={index}>
-                <a href={current.html_url} target="_blank">
-                  <img src={current.avatar_url} />
-                  <span>{current.login}</span>
-                </a>
-              </li>
-            );
-          }
-          return false;
-        })}
-      </ul>
-    </ProfileRelationsBoxWrapper>
-  );
-}
-
 export default function Home(props) {
   const [communities, setCommunities] = useState([]);
   const [followers, setFollowers] = useState([]);
@@ -73,7 +48,9 @@ export default function Home(props) {
 
   useEffect(() => {
     getFollowers(gitHubUser).then((data) => setFollowers(data));
+
     getFollowing(gitHubUser).then((data) => setFollowing(data));
+
     getCommunities().then((data) => setCommunities(data));
   }, []);
 
@@ -148,33 +125,12 @@ export default function Home(props) {
             </form>
           </Box>
         </div>
-        <div
-          className="profileRelationsArea"
-          style={{ gridArea: "profileRelationsArea" }}
-        >
-          <ProfileRelationsBoxWrapper>
-            <h2 className="smallTitle">Comunidades({communities.length})</h2>
 
-            <ul>
-              {communities.map((currentItem, index) => {
-                if (index < 6) {
-                  return (
-                    <li key={currentItem.id}>
-                      <a href={currentItem.url} target="_blank">
-                        <img src={currentItem.imageUrl} />
-                        <span>{currentItem.title}</span>
-                      </a>
-                    </li>
-                  );
-                }
-                return false;
-              })}
-            </ul>
-          </ProfileRelationsBoxWrapper>
-
-          <ProfileRelationsBox title="Seguindo" data={following} />
-          <ProfileRelationsBox title="Seguidores" data={followers} />
-        </div>
+        <ProfileRelationsArea
+          communities={communities}
+          followers={followers}
+          following={following}
+        />
       </MainGrid>
     </>
   );
