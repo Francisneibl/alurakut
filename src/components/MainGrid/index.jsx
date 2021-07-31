@@ -6,7 +6,7 @@ const MainGrid = styled.main`
   margin-right: auto;
   grid-gap: 10px;
   padding: 16px;
-  max-witdh: 500px;
+  max-width: 500px;
 
   .profileArea {
     display: none;

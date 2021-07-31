@@ -1,5 +1,5 @@
-import { createGlobalStyle, ThemeProvider } from "styled-components";
-import { AlurakutStyles } from "../src/lib/AlurakutCommons";
+import { createGlobalStyle, ThemeProvider } from 'styled-components'
+import { AlurakutStyles } from '../src/lib/AlurakutCommons'
 
 const GlobalStyle = createGlobalStyle`
   /*Reset CSS*/
@@ -30,14 +30,26 @@ const GlobalStyle = createGlobalStyle`
     display: block;
   }
 
+  .btn-primary {
+    border: 0;
+    padding: 8px 12px;
+    color: #ffffff;
+    border-radius: 6px;
+    background-color: #2ea043;
+  }
+
+  ul {
+    list-style-type: none;
+  }
+
   ${AlurakutStyles}
-`;
+`
 
 const theme = {
   colors: {
-    primary: "red",
+    primary: 'red',
   },
-};
+}
 
 export default function App({ Component, pageProps }) {
   return (
@@ -47,5 +59,5 @@ export default function App({ Component, pageProps }) {
         <Component {...pageProps} />
       </ThemeProvider>
     </>
-  );
+  )
 }

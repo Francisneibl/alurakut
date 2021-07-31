@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 const Box = styled.div`
   background-color: transparent;
@@ -40,7 +40,7 @@ const Box = styled.div`
   }
   input {
     width: 100%;
-    background-color: transparent;
+    background-color: #0104096e;
     color: #c9d1d9;
     border: 2px solid #30363d;
     padding: 14px 16px;
@@ -63,6 +63,6 @@ const Box = styled.div`
     display: flex;
     justify-content: flex-end;
   }
-`;
+`
 
-export default Box;
+export default Box

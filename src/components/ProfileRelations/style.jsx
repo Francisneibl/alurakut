@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
-import Box from "../Box";
+import Box from '../Box'
 
 export const ProfileRelationsBoxWrapper = styled(Box)`
   ul {
@@ -40,7 +40,7 @@ export const ProfileRelationsBoxWrapper = styled(Box)`
       -webkit-box-orient: vertical;
     }
     &:after {
-      content: "";
+      content: '';
       display: block;
       position: absolute;
       top: 0;
@@ -51,4 +51,12 @@ export const ProfileRelationsBoxWrapper = styled(Box)`
       background-image: linear-gradient(0deg, #00000073, transparent);
     }
   }
-`;
+
+  .bottomOption {
+    width: 100%;
+    color: #ffffff;
+    margin-top: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+`
