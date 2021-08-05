@@ -24,7 +24,7 @@ export function AlurakutMenu({ githubUser }) {
     <AlurakutMenu.Wrapper isMenuOpen={isMenuOpen}>
       <div className="container">
         <AlurakutMenu.Logo>
-          <img src="images/github-icon.svg" />
+          <img src="images/github-icon.svg" alt="icon-github" />
           <p>GitKut</p>
         </AlurakutMenu.Logo>
         <nav style={{ flex: 1 }}>
@@ -49,9 +49,17 @@ export function AlurakutMenu({ githubUser }) {
         </nav>
 
         <button onClick={() => setMenuState(!isMenuOpen)}>
-          {isMenuOpen && <img src={`${BASE_URL}/icons/menu-open.svg?v=${v}`} />}
+          {isMenuOpen && (
+            <img
+              src={`${BASE_URL}/icons/menu-open.svg?v=${v}`}
+              alt="menu-open"
+            />
+          )}
           {!isMenuOpen && (
-            <img src={`${BASE_URL}/icons/menu-closed.svg?v=${v}`} />
+            <img
+              src={`${BASE_URL}/icons/menu-closed.svg?v=${v}`}
+              alt="menu-closed"
+            />
           )}
         </button>
       </div>
@@ -193,6 +201,7 @@ function AlurakutMenuProfileSidebar({ githubUser }) {
         <img
           src={`https://github.com/${githubUser}.png`}
           style={{ borderRadius: '8px' }}
+          alt="avatar-user"
         />
         <hr />
         <p>
@@ -215,39 +224,51 @@ export function AlurakutProfileSidebarMenuDefault() {
   return (
     <AlurakutProfileSidebarMenuDefault.Wrapper>
       <nav>
-        <a href="/">
-          <img src={`${BASE_URL}/icons/user.svg`} />
-          Perfil
-        </a>
-        <a href="/">
-          <img src={`${BASE_URL}/icons/book.svg`} />
-          Recados
-        </a>
-        <a href="/">
-          <img src={`${BASE_URL}/icons/camera.svg`} />
-          Fotos
-        </a>
-        <a href="/">
-          <img src={`${BASE_URL}/icons/sun.svg`} />
-          Depoimentos
-        </a>
+        <NextLink href="/">
+          <div className="menu-item">
+            <img src={`${BASE_URL}/icons/user.svg`} alt="icon user" />
+            Perfil
+          </div>
+        </NextLink>
+        <NextLink href="/">
+          <div className="menu-item">
+            <img src={`${BASE_URL}/icons/book.svg`} alt="book icon" />
+            Recados
+          </div>
+        </NextLink>
+        <NextLink href="/">
+          <div className="menu-item">
+            <img src={`${BASE_URL}/icons/camera.svg`} alt="camera icon" />
+            Fotos
+          </div>
+        </NextLink>
+        <NextLink href="/">
+          <div className="menu-item">
+            <img src={`${BASE_URL}/icons/sun.svg`} alt="sun icon" />
+            Depoimentos
+          </div>
+        </NextLink>
       </nav>
       <hr />
       <nav>
-        <a href="/">
-          <img src={`${BASE_URL}/icons/plus.svg`} />
-          GitHub Trends
-        </a>
-        <a href="/logout">
-          <img src={`${BASE_URL}//icons/logout.svg`} />
-          Sair
-        </a>
+        <NextLink href="/">
+          <div className="menu-item">
+            <img src={`${BASE_URL}/icons/plus.svg`} alt="plus icon" />
+            GitHub Trends
+          </div>
+        </NextLink>
+        <NextLink href="/logout">
+          <div className="menu-item">
+            <img src={`${BASE_URL}//icons/logout.svg`} alt="logout icon" />
+            Sair
+          </div>
+        </NextLink>
       </nav>
     </AlurakutProfileSidebarMenuDefault.Wrapper>
   )
 }
 AlurakutProfileSidebarMenuDefault.Wrapper = styled.div`
-  a {
+  .menu-item {
     font-size: 12px;
     color: #2e7bb4;
     margin-bottom: 16px;
@@ -289,6 +310,7 @@ export function OrkutNostalgicIconSet(props) {
               key={`orkut__icon_set__${slug}_img`}
               className="OrkutNostalgicIconSet__iconSample"
               src={`https://alurakut.vercel.app/icons/${icon}.svg`}
+              alt="icon"
             />
             {props[slug] ? props[slug] : 0}
           </span>
@@ -304,8 +326,7 @@ export function OrkutNostalgicIconSet(props) {
           <li key={`orkut__icon_set__${slug}`}>
             <span className="OrkutNostalgicIconSet__title">{name}</span>
             <span
-              className="OrkutNostalgicIconSet__iconComplex"
-              className="OrkutNostalgicIconSet__number"
+              className="OrkutNostalgicIconSet__iconComplex OrkutNostalgicIconSet__number"
               style={{ gridArea: 'number' }}>
               {[0, 1, 2].map((_, index) => {
                 const isHeartActive = index <= total - 1
@@ -317,6 +338,7 @@ export function OrkutNostalgicIconSet(props) {
                       marginRight: '2px',
                       opacity: isHeartActive ? 1 : '0.5',
                     }}
+                    alt="icon"
                   />
                 )
               })}

@@ -1,6 +1,6 @@
 import { SiteClient } from 'datocms-client'
 import axios from 'axios'
-export default async (request, response) => {
+const communitiesApi = async (request, response) => {
   const { TOKEN_DATO } = process.env
   const client = new SiteClient(TOKEN_DATO)
 
@@ -33,3 +33,5 @@ export default async (request, response) => {
       return response.status(400).json({ message: 'Page not Fount' })
   }
 }
+
+export default communitiesApi

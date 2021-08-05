@@ -1,6 +1,8 @@
 import { AlurakutMenu } from '../../lib/AlurakutCommons'
 import FlowersPageStyle from './styles'
 
+import Image from 'next/image'
+
 const GitHubList = ({ users }) => {
   return (
     <>
@@ -9,10 +11,16 @@ const GitHubList = ({ users }) => {
         <ul>
           {users.map((user) => (
             <li key={user.id}>
-              <a href={user.html_url} target="_blank">
+              <a href={user.html_url} target="_blank" rel="noreferrer">
                 <div className="container">
                   <div className="avatar">
-                    <img src={user.avatar_url} />
+                    <Image
+                      className="image"
+                      src={user.avatar_url}
+                      alt="avatar_user"
+                      layout="fill"
+                      objectFit="contain"
+                    />
                   </div>
                   <div className="content">
                     <div className="name">

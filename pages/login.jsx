@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { CircularProgress } from '@material-ui/core'
 import { useLogin } from '../src/core/hooks/useLogin'
+import Image from 'next/image'
 
 export default function LoginScreen() {
   const { logIn } = useLogin()
@@ -14,13 +15,14 @@ export default function LoginScreen() {
   React.useEffect(() => {
     if (code) {
       setLoading(true)
+
       fetch(`/api/login?code=${code}`)
         .then((res) => res.json())
         .then(({ token }) => {
-          logIn(token)
+          token ? logIn(token) : false
         })
     }
-  }, [code])
+  }, [logIn, code])
   return (
     <main
       style={{
@@ -30,9 +32,13 @@ export default function LoginScreen() {
         justifyContent: 'center',
       }}>
       <div className="loginScreen">
-        <section className="logoArea">
-          <img src="/images/logo.svg" />
-
+        <section className="logoArea" width="300px">
+          <Image
+            src="/images/logo.svg"
+            alt="logo github"
+            width={6000}
+            height={800}
+          />
           <p>
             <strong>Conecte-se</strong> aos seus amigos e familiares usando
             recados e mensagens instantâneas
@@ -68,18 +74,19 @@ export default function LoginScreen() {
           <footer className="box">
             <p>
               Ainda não é membro? <br />
-              <a href="/login">
+              <Link href="/login" passHref>
                 <strong>ENTRAR JÁ</strong>
-              </a>
+              </Link>
             </p>
           </footer>
         </section>
 
         <footer className="footerArea">
           <p>
-            © 2021 alura.com.br - <a href="/">Sobre o Orkut.br</a> -{' '}
-            <a href="/">Centro de segurança</a> - <a href="/">Privacidade</a> -{' '}
-            <a href="/">Termos</a> - <a href="/">Contato</a>
+            © 2021 alura.com.br - <Link href="/">Sobre o Orkut.br</Link> -{' '}
+            <Link href="/">Centro de segurança</Link> -{' '}
+            <Link href="/">Privacidade</Link> - <Link href="/">Termos</Link> -{' '}
+            <Link href="/">Contato</Link>
           </p>
         </footer>
       </div>

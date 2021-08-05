@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
 import { ProfileRelationsBoxWrapper } from './style'
 import Skeleton from '../Skeleton'
@@ -19,8 +20,12 @@ function ProfileRelationsBox({ data, title, path }) {
               if (index < 6) {
                 return (
                   <li key={index}>
-                    <a href={current.html_url} target="_blank">
-                      <img src={current.image_url} />
+                    <a href={current.html_url} target="_blank" rel="noreferrer">
+                      <img
+                        src={current.image_url}
+                        alt="avatar-user"
+                        layout="fill"
+                      />
                       <span>{current.name || current.title}</span>
                     </a>
                   </li>
@@ -28,7 +33,7 @@ function ProfileRelationsBox({ data, title, path }) {
               }
             })}
       </ul>
-      <Link href={path} getServerSideProps={() => ({ test: 'test' })}>
+      <Link href={path} getServerSideProps={() => ({ test: 'test' })} passHref>
         <h2 className="bottomOption">Ver Todos</h2>
       </Link>
     </ProfileRelationsBoxWrapper>

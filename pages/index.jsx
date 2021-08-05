@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import nookies from 'nookies'
 import { getFollowers, getFollowing } from '../src/core/hooks/useGitHub'
 import { getCommunities } from '../src/core/hooks/useCommunities'
@@ -14,9 +15,13 @@ import WelcomeArea from '../src/widgets/WelcomeArea'
 function ProfileSideBar(props) {
   return (
     <Box as="aside">
-      <img
+      <Image
         src={`https://github.com/${props.gitHubUser}.png`}
-        style={{ borderRadius: '8px' }}
+        alt="avatar user"
+        className="images"
+        layout="responsive"
+        width={200}
+        height={200}
       />
 
       <hr />
@@ -47,7 +52,7 @@ export default function Home(props) {
     getFollowing(gitHubUser).then((data) => setFollowing(data))
 
     getCommunities().then((data) => setCommunities(data))
-  }, [])
+  }, [gitHubUser])
 
   return (
     <>

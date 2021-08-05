@@ -39,22 +39,18 @@ const FlowersPageStyle = styled.div`
   }
 
   .avatar {
-    display: inline-block;
+    position: relative;
     height: 80px;
+    width: 80px;
     border-radius: 50%;
     background-color: #fff;
+    background-color: transparent;
   }
 
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    background-position: center center;
-    width: 100%;
-    height: 100%;
-    position: relative;
+  .image {
     border-radius: 8px;
   }
+
   .view {
     right: 10px;
     position: absolute;

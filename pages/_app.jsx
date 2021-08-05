@@ -42,6 +42,10 @@ const GlobalStyle = createGlobalStyle`
     list-style-type: none;
   }
 
+  .images{
+    border-radius: 8px;
+  }
+
   ${AlurakutStyles}
 `
 

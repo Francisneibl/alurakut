@@ -1,4 +1,4 @@
-export default async (req, res) => {
+const loginApi = async (req, res) => {
   const { code } = req.query
 
   const { NEXT_PUBLIC_GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } = process.env
@@ -21,3 +21,5 @@ export default async (req, res) => {
 
   return res.status(400).json({ message: 'Page not Found' })
 }
+
+export default loginApi
