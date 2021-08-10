@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const FlowersPageStyle = styled.div`
+const ListPageStyle = styled.div`
   padding: 30px;
   a {
     text-decoration: none;
@@ -15,7 +15,7 @@ const FlowersPageStyle = styled.div`
     cursor: pointer;
     border: 2px solid #30363d;
     border-radius: 6px;
-    max-width: 700px;
+    max-width: 1000px;
     position: relative;
   }
 
@@ -56,4 +56,4 @@ const FlowersPageStyle = styled.div`
     position: absolute;
   }
 `
-export default FlowersPageStyle
+export default ListPageStyle

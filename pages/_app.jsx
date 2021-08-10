@@ -12,10 +12,11 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: sans-serif;
     background-color: #040D21;
-    background-image: url('/images/hero-glow.svg');
-    background-repeat: no-repeat;
-    background-size: 200%;
-    background-position: center center;
+    //background-image: url('/images/hero-glow.svg');
+    //background-repeat: no-repeat;
+    //background-size: 200%;
+    //background-position: center center ;
+    //background-attachment: fixed;
   }
 
   #__next {
@@ -40,6 +41,10 @@ const GlobalStyle = createGlobalStyle`
 
   ul {
     list-style-type: none;
+  }
+
+  a {
+    text-decoration: none;
   }
 
   .images{

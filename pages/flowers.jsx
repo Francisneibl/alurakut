@@ -1,6 +1,7 @@
-import GitHubList from '../src/components/GitHubList'
+import GitHubList from 'components/List'
 import { useState, useEffect } from 'react'
-import { getFollowers } from '../src/core/hooks/useGitHub'
+import { getFollowers } from 'hooks/useGitHub'
+import UserAuth from 'hooks/useAuth'
 const FlowersPage = ({ githubUser }) => {
   const [users, setUsers] = useState([])
 
@@ -20,11 +21,7 @@ const FlowersPage = ({ githubUser }) => {
 }
 
 export async function getServerSideProps(context) {
-  return {
-    props: {
-      githubUser: 'Francisneibl',
-    },
-  }
+  return await UserAuth(context)
 }
 
 export default FlowersPage

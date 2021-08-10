@@ -8,7 +8,7 @@ const ProfileRelationsArea = ({ communities, followers, following }) => {
       <ProfileRelationsBox
         title="Comunidades"
         data={communities}
-        path="/comunities"
+        path="/communities"
       />
       <ProfileRelationsBox title="Seguindo" data={following} path="/flowing" />
       <ProfileRelationsBox

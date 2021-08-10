@@ -1,7 +1,7 @@
-import { useEffect } from 'react'
-import { useState, UseEffect } from 'react'
+import { useState, useEffect } from 'react'
+import UserAuth from 'hooks/useAuth'
 import { getFollowing } from '../src/core/hooks/useGitHub'
-import GitHubList from '../src/components/GitHubList'
+import GitHubList from '../src/components/List'
 
 const FlowingPage = ({ githubUser }) => {
   const [users, setUsers] = useState([])
@@ -24,10 +24,6 @@ const FlowingPage = ({ githubUser }) => {
 }
 
 export async function getServerSideProps(context) {
-  return {
-    props: {
-      githubUser: 'Francisneibl',
-    },
-  }
+  return await UserAuth(context)
 }
 export default FlowingPage

@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import nookies from 'nookies'
 import { getFollowers, getFollowing } from '../src/core/hooks/useGitHub'
 import { getCommunities } from '../src/core/hooks/useCommunities'
-import MainGrid from '../src/components/MainGrid'
-import Box from '../src/components/Box'
+import UserAuth from 'hooks/useAuth'
+import MainGrid from 'components/MainGrid'
+import Box from 'components/Box'
 import ProfileRelationsArea from '../src/widgets/profileRelationsArea'
 import {
   AlurakutMenu,
@@ -83,25 +83,5 @@ export default function Home(props) {
 }
 
 export async function getServerSideProps(context) {
-  const cookies = nookies.get(context)
-  const token = cookies.USER_TOKEN
-  const { login } = await fetch('https://api.github.com/user', {
-    headers: {
-      Authorization: `token ${token}`,
-    },
-  }).then(async (res) => await res.json())
-
-  if (!login) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    }
-  }
-  return {
-    props: {
-      githubUser: login,
-    },
-  }
+  return await UserAuth(context)
 }
