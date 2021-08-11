@@ -16,7 +16,7 @@ const Box = styled.div`
   }
   .title {
     color: #ffffff;
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 400;
     margin-bottom: 20px;
   }
@@ -38,7 +38,8 @@ const Box = styled.div`
     border-color: transparent;
     border-bottom-color: #ecf2fa;
   }
-  input {
+  input,
+  textarea {
     width: 100%;
     background-color: #0104096e;
     color: #c9d1d9;
