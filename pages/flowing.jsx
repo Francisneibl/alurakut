@@ -1,26 +1,33 @@
 import { useState, useEffect } from 'react'
 import UserAuth from 'hooks/useAuth'
-import { getFollowing } from '../src/core/hooks/useGitHub'
-import GitHubList from '../src/components/List'
+import GitHubList from 'components/List'
+import { AlurakutMenu } from 'lib/AlurakutCommons'
+import { useMainData } from 'providers/dataMain'
 
-const FlowingPage = ({ githubUser }) => {
+const FlowingPage = ({ gitHubUser }) => {
   const [users, setUsers] = useState([])
-
+  const { following } = useMainData()
   useEffect(() => {
     const getUsers = async () => {
-      const userResult = await getFollowing(githubUser)
-      const result = userResult.data.map((user) => {
-        return fetch(`https://api.github.com/users/${user.name}`).then((res) =>
-          res.json()
-        )
-      })
+      if (following.data.length) {
+        const result = following.data.map((user) => {
+          return fetch(`https://api.github.com/users/${user.name}`).then(
+            (res) => res.json()
+          )
+        })
 
-      Promise.all(result).then((res) => setUsers(res))
+        Promise.all(result).then((res) => setUsers(res))
+      }
     }
     getUsers()
-  }, [githubUser])
+  }, [following])
 
-  return <GitHubList users={users} />
+  return (
+    <>
+      <AlurakutMenu githubUser={gitHubUser} />
+      <GitHubList users={users} />
+    </>
+  )
 }
 
 export async function getServerSideProps(context) {

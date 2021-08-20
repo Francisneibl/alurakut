@@ -17,12 +17,14 @@ export default function LoginScreen() {
       setLoading(true)
 
       fetch(`/api/login?code=${code}`)
-        .then((res) => res.json())
-        .then(({ token }) => {
-          token ? logIn(token) : false
+        .then((response) => response.json())
+        .then(({ user, access_token }) => {
+          if (user?.id && access_token) {
+            logIn(user, access_token)
+          }
         })
     }
-  }, [logIn, code])
+  }, [code, logIn])
   return (
     <main
       style={{

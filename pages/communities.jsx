@@ -24,7 +24,7 @@ const CommunitiesPage = () => {
               <Box
                 style={{
                   display: 'flex',
-                  'align-items': 'center',
+                  alignItems: 'center',
                   padding: 0,
                 }}>
                 <div className="Avatar">

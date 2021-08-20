@@ -1,23 +1,30 @@
 import GitHubList from 'components/List'
+import { AlurakutMenu } from 'lib/AlurakutCommons'
 import { useState, useEffect } from 'react'
-import { getFollowers } from 'hooks/useGitHub'
+import { useMainData } from 'providers/dataMain'
 import UserAuth from 'hooks/useAuth'
-const FlowersPage = ({ githubUser }) => {
+const FlowersPage = ({ gitHubUser }) => {
   const [users, setUsers] = useState([])
-
+  const { followers } = useMainData()
   useEffect(() => {
     const getUsers = async () => {
-      const userss = await getFollowers(githubUser)
-      const result = userss.data.map((user) => {
-        return fetch(`https://api.github.com/users/${user.name}`).then((res) =>
-          res.json()
-        )
-      })
-      Promise.all(result).then((res) => setUsers(res))
+      if (followers.data.length) {
+        const result = followers.data.map((user) => {
+          return fetch(`https://api.github.com/users/${user.name}`).then(
+            (res) => res.json()
+          )
+        })
+        Promise.all(result).then((res) => setUsers(res))
+      }
     }
     getUsers()
-  }, [githubUser])
-  return <GitHubList users={users} />
+  }, [followers])
+  return (
+    <>
+      <AlurakutMenu githubUser={gitHubUser} />
+      <GitHubList users={users} />
+    </>
+  )
 }
 
 export async function getServerSideProps(context) {

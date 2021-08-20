@@ -1,6 +1,7 @@
-import ProfileRelationsBox from '../../components/ProfileRelations'
-
-const ProfileRelationsArea = ({ communities, followers, following }) => {
+import ProfileRelationsBox from 'components/ProfileRelations'
+import { useMainData } from 'providers/dataMain'
+const ProfileRelationsArea = () => {
+  const { communities, followers, following } = useMainData()
   return (
     <div
       className="profileRelationsArea"

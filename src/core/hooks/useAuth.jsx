@@ -1,15 +1,9 @@
 import nookies from 'nookies'
-
-const UserAuth = async (context) => {
+const UserAuth = (context) => {
   const cookies = nookies.get(context)
-  const token = cookies.USER_TOKEN
-  const { login } = await fetch('https://api.github.com/user', {
-    headers: {
-      Authorization: `token ${token}`,
-    },
-  }).then(async (res) => await res.json())
+  const user = cookies?.USER ? JSON.parse(cookies.USER) : false
 
-  if (!login) {
+  if (!user) {
     return {
       redirect: {
         destination: '/login',
@@ -17,9 +11,10 @@ const UserAuth = async (context) => {
       },
     }
   }
+
   return {
     props: {
-      githubUser: login,
+      gitHubUser: user.login,
     },
   }
 }

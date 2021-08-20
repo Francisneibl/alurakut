@@ -5,15 +5,21 @@ const loginApi = async (req, res) => {
 
   if (req.method === 'GET') {
     try {
-      const response = await fetch(
+      const { access_token } = await fetch(
         `https://github.com/login/oauth/access_token?client_id=${NEXT_PUBLIC_GITHUB_CLIENT_ID}&client_secret=${GITHUB_CLIENT_SECRET}&code=${code}`,
         {
           method: 'POST',
           headers: { accept: 'application/json' },
         }
-      )
-      const { access_token } = await response.json()
-      return res.status(200).json({ token: access_token })
+      ).then(async (response) => await response.json())
+
+      const user = await fetch('https://api.github.com/user', {
+        headers: {
+          Authorization: `token ${access_token}`,
+        },
+      }).then(async (res) => await res.json())
+
+      return res.status(200).json({ user, access_token })
     } catch {
       return res.status(501).json({ message: 'Internal Error' })
     }
