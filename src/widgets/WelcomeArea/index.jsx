@@ -4,7 +4,7 @@ import { OrkutNostalgicIconSet } from '../../lib/AlurakutCommons'
 import FormCommunitie from './FormCommunitie'
 import FormMessage from './FormMessages'
 
-const WelcomeArea = ({ gitHubUser, setCommunities }) => {
+const WelcomeArea = ({ gitHubUser }) => {
   return (
     <div className="welcomeArea" style={{ gridArea: 'welcomeArea' }}>
       <Box>

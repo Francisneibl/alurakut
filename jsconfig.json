@@ -3,7 +3,9 @@
     "baseUrl": ".",
     "paths": {
       "components/*": ["src/components/*"],
-      "hooks/*": ["src/core/hooks/*"]
+      "hooks/*": ["src/core/hooks/*"],
+      "providers/*": ["src/core/providers/*"],
+      "lib/*": ["src/lib/*"]
     }
   },
   "exclude": ["node_modules"]

@@ -1,4 +1,3 @@
-import { AlurakutMenu } from '../../lib/AlurakutCommons'
 import FlowersPageStyle from './styles'
 
 import Image from 'next/image'
@@ -6,7 +5,6 @@ import Image from 'next/image'
 const GitHubList = ({ users }) => {
   return (
     <>
-      <AlurakutMenu />
       <FlowersPageStyle>
         <ul>
           {users.map((user) => (

@@ -1,3 +1,4 @@
+import { MainDataProvider } from 'providers/dataMain'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 import { AlurakutStyles } from '../src/lib/AlurakutCommons'
 
@@ -65,7 +66,9 @@ export default function App({ Component, pageProps }) {
     <>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
+        <MainDataProvider>
+          <Component {...pageProps} />
+        </MainDataProvider>
       </ThemeProvider>
     </>
   )

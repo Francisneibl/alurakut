@@ -4,16 +4,17 @@ import { useForm } from 'react-hook-form'
 import { CircularProgress } from '@material-ui/core'
 import { addCommunities } from 'hooks/useCommunities'
 import { useState } from 'react'
+import { useMainData } from 'providers/dataMain'
 
 const FormCommunitie = ({ gitHubUser }) => {
   const { register, handleSubmit, reset } = useForm()
   const [sending, setSending] = useState(false)
-
+  const { setCommunities } = useMainData()
   function createCommunitie(data) {
     const communitie = { ...data, create_by: gitHubUser }
     setSending(true)
     addCommunities(communitie).then((_) => {
-      setCommunities(communitie)
+      //setCommunities(communitie)
       setSending(false)
       reset()
     })
