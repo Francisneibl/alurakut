@@ -5,6 +5,7 @@
       "components/*": ["src/components/*"],
       "hooks/*": ["src/core/hooks/*"],
       "providers/*": ["src/core/providers/*"],
+      "utils/*": ["src/core/utils/*"],
       "lib/*": ["src/lib/*"]
     }
   },

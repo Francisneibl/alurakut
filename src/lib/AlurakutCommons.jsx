@@ -1,7 +1,8 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import NextLink from 'next/link'
-import { useLogin } from '../core/hooks/useLogin'
+import UseAuth from 'hooks/useAuth'
+import useAuth from 'hooks/useAuth'
 
 const BASE_URL = 'http://alurakut.vercel.app/'
 const v = '1'
@@ -19,7 +20,7 @@ function Link({ href, children, ...props }) {
 // ================================================================================================================
 export function AlurakutMenu({ githubUser }) {
   const [isMenuOpen, setMenuState] = React.useState(false)
-  const { logOut } = useLogin()
+  const { logOut } = useAuth()
   return (
     <AlurakutMenu.Wrapper isMenuOpen={isMenuOpen}>
       <div className="container">
@@ -221,7 +222,7 @@ function AlurakutMenuProfileSidebar({ githubUser }) {
 // AlurakutProfileSidebarMenuDefault
 // ================================================================================================================
 export function AlurakutProfileSidebarMenuDefault() {
-  const { logOut } = useLogin()
+  const { logOut } = useAuth()
   return (
     <AlurakutProfileSidebarMenuDefault.Wrapper>
       <nav>

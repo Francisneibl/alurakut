@@ -1,12 +1,14 @@
 import axios from 'axios'
 import { parseCookies } from 'nookies'
-const { TOKEN } = parseCookies()
+
 const api = axios.create({
   baseURL: 'https://api.github.com/users',
-  headers: {
-    Authorization: 'token ' + TOKEN,
-  },
 })
+
+const setToken = () => {
+  const { 'alurakut.token': token } = parseCookies()
+  api.defaults.headers['Authorization'] = `token ${token}`
+}
 
 const formatData = (users) => {
   return {
@@ -21,6 +23,7 @@ const formatData = (users) => {
 }
 
 export const getFollowers = (gitHubUser) => {
+  setToken()
   return api
     .get(`${gitHubUser}/followers`)
     .then((res) => formatData(res.data))
@@ -30,6 +33,7 @@ export const getFollowers = (gitHubUser) => {
 }
 
 export const getFollowing = (gitHubUser) => {
+  setToken()
   return api
     .get(`${gitHubUser}/following`)
     .then((res) => formatData(res.data))

@@ -2,7 +2,7 @@ import GitHubList from 'components/List'
 import { AlurakutMenu } from 'lib/AlurakutCommons'
 import { useState, useEffect } from 'react'
 import { useMainData } from 'providers/dataMain'
-import UserAuth from 'hooks/useAuth'
+import validateUser from 'utils/validateUser'
 const FlowersPage = ({ gitHubUser }) => {
   const [users, setUsers] = useState([])
   const { followers } = useMainData()
@@ -28,7 +28,7 @@ const FlowersPage = ({ gitHubUser }) => {
 }
 
 export async function getServerSideProps(context) {
-  return await UserAuth(context)
+  return validateUser(context)
 }
 
 export default FlowersPage

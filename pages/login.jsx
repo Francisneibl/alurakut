@@ -3,11 +3,11 @@ import React from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { CircularProgress } from '@material-ui/core'
-import { useLogin } from '../src/core/hooks/useLogin'
+import useAuth from 'hooks/useAuth'
 import Image from 'next/image'
 
 export default function LoginScreen() {
-  const { logIn } = useLogin()
+  const { logIn } = useAuth()
   const router = useRouter()
   const [loading, setLoading] = React.useState(false)
   const { code } = router.query

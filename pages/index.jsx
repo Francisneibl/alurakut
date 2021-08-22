@@ -1,13 +1,14 @@
-import UserAuth from 'hooks/useAuth'
+import nookies from 'nookies'
 import MainGrid from 'components/MainGrid'
-import { AlurakutMenu } from '../src/lib/AlurakutCommons'
+import { AlurakutMenu } from 'lib/AlurakutCommons'
 import WelcomeArea from '../src/widgets/WelcomeArea'
 import ProfileSideBar from 'components/ProfileSidebar'
 import ProfileRelationsArea from 'src/widgets/profileRelationsArea'
+import useAuth from 'hooks/useAuth'
+import validateUser from 'utils/validateUser'
 
 export default function Home(props) {
-  const gitHubUser = props.gitHubUser
-
+  const { user: gitHubUser } = useAuth()
   return (
     <>
       <AlurakutMenu githubUser={gitHubUser} />
@@ -33,5 +34,5 @@ export default function Home(props) {
 }
 
 export async function getServerSideProps(context) {
-  return UserAuth(context)
+  return validateUser(context)
 }
