@@ -1,3 +1,4 @@
+import { AuthProvider } from 'providers/authProvider'
 import { MainDataProvider } from 'providers/dataMain'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 import { AlurakutStyles } from '../src/lib/AlurakutCommons'
@@ -66,9 +67,11 @@ export default function App({ Component, pageProps }) {
     <>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
-        <MainDataProvider>
-          <Component {...pageProps} />
-        </MainDataProvider>
+        <AuthProvider>
+          <MainDataProvider>
+            <Component {...pageProps} />
+          </MainDataProvider>
+        </AuthProvider>
       </ThemeProvider>
     </>
   )

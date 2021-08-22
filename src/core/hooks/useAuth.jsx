@@ -1,22 +1,9 @@
-import nookies from 'nookies'
-const UserAuth = (context) => {
-  const cookies = nookies.get(context)
-  const user = cookies?.USER ? JSON.parse(cookies.USER) : false
+import { authContext } from 'providers/authProvider'
 
-  if (!user) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    }
-  }
+import { useContext } from 'react'
 
-  return {
-    props: {
-      gitHubUser: user.login,
-    },
-  }
+const useAuth = () => {
+  return useContext(authContext)
 }
 
-export default UserAuth
+export default useAuth

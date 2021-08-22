@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import UserAuth from 'hooks/useAuth'
 import GitHubList from 'components/List'
 import { AlurakutMenu } from 'lib/AlurakutCommons'
 import { useMainData } from 'providers/dataMain'
+import validateUser from 'utils/validateUser'
 
 const FlowingPage = ({ gitHubUser }) => {
   const [users, setUsers] = useState([])
@@ -31,6 +31,6 @@ const FlowingPage = ({ gitHubUser }) => {
 }
 
 export async function getServerSideProps(context) {
-  return await UserAuth(context)
+  return validateUser(context)
 }
 export default FlowingPage
